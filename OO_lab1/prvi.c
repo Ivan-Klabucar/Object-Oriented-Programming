@@ -3,28 +3,28 @@
 
 typedef char const* (*PTRFUN)();
 
-char const* dogGreet(void){
-  return "vau!";
-}
-char const* dogMenu(void){
-  return "kuhanu govedinu";
-}
-char const* catGreet(void){
-  return "mijau!";
-}
-char const* catMenu(void){
-  return "konzerviranu tunjevinu";
-}
-
-PTRFUN DOG_VTABLE[2] = { dogGreet, dogMenu };
-PTRFUN CAT_VTABLE[2] = { catGreet, catMenu };
-
 struct Animal {
     PTRFUN* vtf_;
     char const * name_;
 };
 
 typedef struct Animal Animal;
+
+char const* dogGreet(Animal* animal){
+  return "vau!";
+}
+char const* dogMenu(Animal* animal){
+  return "kuhanu govedinu";
+}
+char const* catGreet(Animal* animal){
+  return "mijau!";
+}
+char const* catMenu(Animal* animal){
+  return "konzerviranu tunjevinu";
+}
+
+PTRFUN DOG_VTABLE[2] = { dogGreet, dogMenu };
+PTRFUN CAT_VTABLE[2] = { catGreet, catMenu };
 
 void constructDog(Animal* animal, char const* name) {
     animal->vtf_ = DOG_VTABLE;
@@ -49,11 +49,11 @@ Animal* createCat(char const* name) {
 }
 
 void animalPrintGreeting(Animal* animal) {
-    printf("%s pozdravlja: %s\n", animal->name_, animal->vtf_[0]());
+    printf("%s pozdravlja: %s\n", animal->name_, animal->vtf_[0](animal));
 }
 
 void animalPrintMenu(Animal* animal) {
-    printf("%s voli %s\n", animal->name_, animal->vtf_[1]());
+    printf("%s voli %s\n", animal->name_, animal->vtf_[1](animal));
 }
 
 Animal* createNDogs(int n, char const* names[]) {
