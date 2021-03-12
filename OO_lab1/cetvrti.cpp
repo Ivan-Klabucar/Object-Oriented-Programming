@@ -26,7 +26,7 @@ int main(){
   Base* pb=new CoolClass;
   poc.set(42);
   pb->set(42);
-  cout << "PlainOldClass x_: " << poc.get() << endl;
-  cout << "Base x_: " << pb->get() << endl;
+  // cout << "PlainOldClass x_: " << poc.get() << endl;
+  // cout << "Base x_: " << pb->get() << endl;
   return 0;
 } 
