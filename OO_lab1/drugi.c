@@ -44,13 +44,12 @@ bool same_functions_for_ints(Unary_Function *f1, Unary_Function *f2, double tole
     return true;
 }
 
-double value_at_Square(Unary_Function* f, double x) {
+double value_at_Square(Square* f, double x) {
     return x*x;
 }
 
-double value_at_Linear(Unary_Function* f, double x) {
-    Linear* linear = (Linear *) f;
-    return linear->a*x + linear->b;
+double value_at_Linear(Linear* f, double x) {
+    return f->a*x + f->b;
 };
 
 PTRFUN SQUARE_TVF[2] = { value_at_Square, negative_value_at };
