@@ -16,21 +16,21 @@ const void* mymax(
     return curr_max;
 }
 
-int int_compar(const void * f, const void * s) {
+int gt_int(const void * f, const void * s) {
     if (*(const int*)f > *(const int*)s) {
         return 1;
     }
     return 0;
 }
 
-int char_compar(const void * f, const void * s) {
+int gt_char(const void * f, const void * s) {
     if (*(const char*)f > *(const char*)s) {
         return 1;
     }
     return 0;
 }
 
-int str_compar(const void * f, const void * s) {
+int gt_str(const void * f, const void * s) {
     if (strcmp(*(const char**)f, *(const char**)s) > 0) {
         return 1;
     }
@@ -46,13 +46,13 @@ int main() {
     "Puna", "je", "kapi", "pa", "ih", "njise", "aaa"
     };
 
-    int max_int = *(int*)mymax(arr_int, sizeof(arr_int)/sizeof(arr_int[0]), sizeof(int), int_compar);
+    int max_int = *(int*)mymax(arr_int, sizeof(arr_int)/sizeof(arr_int[0]), sizeof(int), gt_int);
     printf("max u arr_int: %d\n", max_int);
 
-    char max_char = *(char*)mymax(arr_char, sizeof(arr_char)/sizeof(arr_char[0]), sizeof(char), char_compar);
+    char max_char = *(char*)mymax(arr_char, sizeof(arr_char)/sizeof(arr_char[0]), sizeof(char), gt_char);
     printf("max u arr_char: %c\n", max_char);
 
-    const char* max_str = *(const char**)mymax(arr_str, sizeof(arr_str)/sizeof(arr_str[0]), sizeof(const char*), str_compar);
+    const char* max_str = *(const char**)mymax(arr_str, sizeof(arr_str)/sizeof(arr_str[0]), sizeof(const char*), gt_str);
     printf("max u arr_str: %s\n", max_str);
 
     return 0;
