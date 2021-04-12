@@ -4,6 +4,8 @@
 #include <set>
 using namespace std;
 
+//DRUGI 2.
+
 
 int gt_int(int f, int s) {
     if (f > s) {

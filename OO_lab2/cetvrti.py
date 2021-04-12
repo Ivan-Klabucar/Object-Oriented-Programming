@@ -1,3 +1,4 @@
+#4. CETVRTI
 import numpy as np
     
 def DistributionTester(distribution, percentile_finder):

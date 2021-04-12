@@ -1,3 +1,4 @@
+#SESTI 6.
 import ast
 import re
 
@@ -16,11 +17,17 @@ def eval_expression(exp, variables={}):
     return _eval(node.body)
 
 class Cell:
-    def __init__(self, exp, name):
+    def __init__(self, exp, name, sheet):
         self.exp = exp
         self.value = None
         self.dependees = []
         self.name = name
+        self.sheet = sheet
+    
+    def update_cell(self):
+        self.value = self.sheet.evaluate(self)
+        for c in self.dependees:
+            c.update_cell()
 
 class Sheet:
     def __init__(self, rows, cols):
@@ -43,17 +50,12 @@ class Sheet:
                 if r.name == ref: raise Exception('Circular definition!')
                 if r.name not in closed: open.add(r.name)
 
-    def update_cell(self, cell):
-        cell.value = self.evaluate(cell)
-        for c in cell.dependees:
-            self.update_cell(c)
-
     def set(self, ref, content):
         coordinates = list(ref)
         self.check_if_in_bounds(coordinates)
         old_cell = None
         if ref in self.table: old_cell = self.table[ref]
-        self.table[ref] = Cell(content, ref)
+        self.table[ref] = Cell(content, ref, sheet=self)
         try:
             self.check_if_cycle_in_refs(ref)
         except Exception as e:
@@ -62,7 +64,7 @@ class Sheet:
             raise e
         if old_cell: self.table[ref].dependees = old_cell.dependees
         for r in self.getrefs(self.table[ref]): r.dependees.append(self.table[ref])
-        self.update_cell(self.table[ref])
+        self.table[ref].update_cell()
     
     def cell(self, ref):
         return self.table[ref]

@@ -1,3 +1,4 @@
+#TRECI 3.
 def mymax(iterable, key=lambda x: x):
   # incijaliziraj maksimalni element i maksimalni ključ
   max_x = max_key = None

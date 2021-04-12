@@ -1,6 +1,7 @@
-  #include <iostream>
-  #include <assert.h>
-  #include <stdlib.h>
+#include <iostream>
+#include <assert.h>
+#include <stdlib.h>
+//NULTI
 
 class Point{
 public:
