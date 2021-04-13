@@ -28,6 +28,12 @@ class Cell:
         self.value = self.sheet.evaluate(self)
         for c in self.dependees:
             c.update_cell()
+    
+    def subscribe_cell(self, cell):
+        self.dependees.append(cell)
+    
+    def unsubscribe_cell(self, cell):
+        if cell in self.dependees: self.dependees.remove(cell)
 
 class Sheet:
     def __init__(self, rows, cols):
@@ -62,8 +68,10 @@ class Sheet:
             del self.table[ref]
             if old_cell: self.table[ref] = old_cell
             raise e
-        if old_cell: self.table[ref].dependees = old_cell.dependees
-        for r in self.getrefs(self.table[ref]): r.dependees.append(self.table[ref])
+        if old_cell: 
+            self.table[ref].dependees = old_cell.dependees
+            for r in self.getrefs(old_cell): r.unsubscribe_cell(old_cell)
+        for r in self.getrefs(self.table[ref]): r.subscribe_cell(self.table[ref])
         self.table[ref].update_cell()
     
     def cell(self, ref):
