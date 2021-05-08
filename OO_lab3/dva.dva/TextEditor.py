@@ -40,6 +40,8 @@ class TextEditor(Tk):
         self.bind('<Control-Key-x>', self.copy_erase_to_clipbrd)
         self.bind('<Control-Key-v>', self.paste_top_of_clipbrd)
         self.bind('<Control-Shift-Key-V>', self.paste_from_clipbrd)
+        self.bind('<Control-Key-z>', lambda e: self.TextEditorModel.undoManager.undo())
+        self.bind('<Control-Key-y>', lambda e: self.TextEditorModel.undoManager.redo())
     
     def paste_from_clipbrd(self, event):
         if self.clipbrd.is_empty(): return
