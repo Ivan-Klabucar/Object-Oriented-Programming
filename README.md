@@ -1,2 +1,5 @@
-# OO_lab
-Object Oriented Programming Laboratory Exercises
+# Object Oriented Programming – ID 209629
+
+### University of Zagreb – Faculty of Electrical Engineering and Computing
+
+Laboratory exercise solutions.
